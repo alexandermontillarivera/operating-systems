@@ -17,11 +17,9 @@ interface Win7SimulatorProps {
   onBack: () => void
 }
 
-const DESKTOP_ICONS: { id: AppId; label: string }[] = [
-  { id: "computer", label: "Equipo" },
-  { id: "documents", label: "Mis documentos" },
-  { id: "ie", label: "Internet Explorer" },
-  { id: "history", label: "Historia Win 7" },
+const DESKTOP_ICONS: { id: AppId | "recyclebin"; label: string; launchAs?: AppId }[] = [
+  { id: "recyclebin", label: "Recycle Bin" },
+  { id: "history", label: "Historia Win 7", launchAs: "history" },
 ]
 
 export function Win7Simulator({ onBack }: Win7SimulatorProps) {
@@ -47,34 +45,29 @@ export function Win7Simulator({ onBack }: Win7SimulatorProps) {
       className="min-h-screen overflow-hidden relative select-none text-black"
       onClick={() => startMenuOpen && setStartMenuOpen(false)}
     >
-      {/* Aero wallpaper */}
+      {/* Wallpaper image (Harmony) */}
       <div
         className="absolute inset-0"
         style={{
-          background: "radial-gradient(ellipse at 30% 30%, #4a90e2 0%, #1e3a5f 50%, #0c1a30 100%)",
+          backgroundImage: "url('/win7-harmony.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundColor: "#1c4582",
         }}
-      >
-        <div
-          className="absolute inset-0 opacity-30"
-          style={{
-            backgroundImage:
-              "radial-gradient(ellipse at center, rgba(120,180,255,0.3) 0%, transparent 70%)",
-          }}
-        />
-      </div>
+      />
 
       {/* Desktop icons */}
       <div className="absolute top-4 left-4 flex flex-col gap-4 z-10">
         {DESKTOP_ICONS.map((icon) => (
           <button
             key={icon.id}
-            onDoubleClick={() => launchById(icon.id, icon.label)}
+            onDoubleClick={() => icon.launchAs && launchById(icon.launchAs, icon.label)}
             className="flex flex-col items-center gap-1 p-2 rounded hover:bg-white/10 cursor-pointer w-20"
           >
             <div className="drop-shadow-lg">
-              <Win7Icon kind={icon.id} size={40} />
+              <Win7Icon kind={icon.id as AppId | "recyclebin"} size={44} />
             </div>
-            <span className="text-white text-xs text-center drop-shadow">{icon.label}</span>
+            <span className="text-white text-xs text-center drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">{icon.label}</span>
           </button>
         ))}
       </div>
