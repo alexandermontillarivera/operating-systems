@@ -293,35 +293,36 @@ export function OSSelector({ onSelect }: OSSelectorProps) {
     <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
       <header className="py-8 px-4 text-center border-b border-border/50">
-        <motion.h1 
-          initial={{ opacity: 0, y: -20 }}
+        <motion.h1
+          initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
           className="text-4xl md:text-6xl font-bold text-foreground mb-4"
         >
           Historia de los Sistemas Operativos
         </motion.h1>
-        <motion.p 
+        <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
+          transition={{ duration: 0.25, delay: 0.05, ease: "easeOut" }}
           className="text-muted-foreground text-lg md:text-xl max-w-3xl mx-auto"
         >
-          Explora la evolución desde UNIX en 1969 hasta los sistemas modernos. 
+          Explora la evolución desde UNIX en 1969 hasta los sistemas modernos.
           Haz clic en cualquier sistema para explorarlo interactivamente.
         </motion.p>
 
         {/* Filter buttons */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
+          transition={{ duration: 0.25, delay: 0.1, ease: "easeOut" }}
           className="flex flex-wrap justify-center gap-2 mt-6"
         >
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setFilter(cat.id as typeof filter)}
-              className={`px-4 py-2 rounded-full text-sm transition-all flex items-center gap-2 ${
+              className={`px-4 py-2 rounded-full text-sm transition-colors duration-150 flex items-center gap-2 ${
                 filter === cat.id
                   ? "bg-primary text-primary-foreground"
                   : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
@@ -337,53 +338,53 @@ export function OSSelector({ onSelect }: OSSelectorProps) {
       {/* OS Grid */}
       <div className="flex-1 px-4 py-8">
         <div className="max-w-7xl mx-auto">
-          <motion.div 
+          <motion.div
             layout
+            transition={{ duration: 0.25, ease: "easeOut" }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
-            {filteredOS.map((os, index) => (
+            {filteredOS.map((os) => (
               <motion.button
                 key={os.id}
                 layout
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ delay: 0.05 * index }}
-                whileHover={{ scale: 1.02, y: -4 }}
-                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                whileHover={{ y: -3, transition: { duration: 0.15, ease: "easeOut" } }}
+                whileTap={{ scale: 0.98, transition: { duration: 0.1 } }}
                 onClick={() => onSelect(os.id)}
-                className={`bg-gradient-to-br ${os.color} p-6 rounded-xl border border-border/30 text-left transition-all hover:shadow-2xl hover:shadow-primary/10 group relative overflow-hidden`}
+                className={`bg-gradient-to-br ${os.color} p-6 rounded-xl border border-border/30 text-left transition-shadow duration-200 hover:shadow-2xl hover:shadow-primary/10 group relative overflow-hidden will-change-transform`}
               >
-                {/* Year badge */}
-                <div className="absolute top-3 right-3 bg-black/30 backdrop-blur-sm px-2 py-1 rounded text-xs text-white/80 font-mono">
-                  {os.year}
-                </div>
-
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="p-3 bg-black/20 rounded-xl backdrop-blur-sm">
-                    {os.icon}
+                  {/* Year badge */}
+                  <div className="absolute top-3 right-3 bg-black/30 backdrop-blur-sm px-2 py-1 rounded text-xs text-white/80 font-mono">
+                    {os.year}
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-xl md:text-2xl font-bold text-white truncate">{os.name}</h3>
-                    <span className="text-xs text-white/60 uppercase tracking-wider">
-                      {os.category === "terminal" ? "Terminal" : os.category === "gui" ? "GUI" : "Linux"}
-                    </span>
+
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="p-3 bg-black/20 rounded-xl backdrop-blur-sm">
+                      {os.icon}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-xl md:text-2xl font-bold text-white truncate">{os.name}</h3>
+                      <span className="text-xs text-white/60 uppercase tracking-wider">
+                        {os.category === "terminal" ? "Terminal" : os.category === "gui" ? "GUI" : "Linux"}
+                      </span>
+                    </div>
                   </div>
-                </div>
 
-                <p className="text-white/80 text-sm leading-relaxed line-clamp-3">
-                  {os.description}
-                </p>
+                  <p className="text-white/80 text-sm leading-relaxed line-clamp-3">
+                    {os.description}
+                  </p>
 
-                <div className="mt-4 text-white/60 text-sm group-hover:text-white transition-colors flex items-center gap-2">
-                  Explorar sistema
-                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
+                  <div className="mt-4 text-white/60 text-sm group-hover:text-white transition-colors duration-150 flex items-center gap-2">
+                    Explorar sistema
+                    <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
 
-                {/* Subtle glow effect */}
-                <div className="absolute inset-0 bg-gradient-to-t from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                  {/* Subtle glow effect */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none" />
               </motion.button>
             ))}
           </motion.div>
