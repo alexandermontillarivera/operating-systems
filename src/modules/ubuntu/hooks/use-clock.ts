@@ -1,0 +1,12 @@
+"use client"
+
+import { useEffect, useState } from "react"
+
+export function useClock(intervalMs = 1000) {
+  const [time, setTime] = useState(() => new Date())
+  useEffect(() => {
+    const id = setInterval(() => setTime(new Date()), intervalMs)
+    return () => clearInterval(id)
+  }, [intervalMs])
+  return time
+}

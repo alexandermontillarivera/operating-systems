@@ -1,0 +1,60 @@
+const PAGES: Record<string, string[]> = {
+  ls: [
+    "LS(1)                   UNIX V7                   LS(1)",
+    "",
+    "NAME",
+    "     ls - list contents of directory",
+    "",
+    "SYNOPSIS",
+    "     ls [-altF] [name ...]",
+    "",
+    "DESCRIPTION",
+    "     For each directory argument ls lists the contents.",
+  ],
+  ed: [
+    "ED(1)                   UNIX V7                   ED(1)",
+    "",
+    "NAME",
+    "     ed - text editor",
+    "",
+    "SYNOPSIS",
+    "     ed [file]",
+    "",
+    "COMMANDS",
+    "     a    append text after current line",
+    "     i    insert text before current line",
+    "     .    end insert mode",
+    "     p    print current line",
+    "     ,p   print all lines",
+    "     N    go to line N",
+    "     d    delete current line",
+    "     w    write to file",
+    "     q    quit",
+    "",
+    "AUTHOR",
+    "     Ken Thompson, Bell Labs",
+  ],
+  cat: [
+    "CAT(1)                  UNIX V7                  CAT(1)",
+    "",
+    "NAME  cat - concatenate and print files",
+    "SYNOPSIS  cat [file ...]",
+    "DESCRIPTION  cat reads each file in sequence and writes it on stdout.",
+  ],
+  grep: [
+    "GREP(1)                 UNIX V7                 GREP(1)",
+    "",
+    "NAME  grep - search a file for a pattern",
+    "SYNOPSIS  grep pattern file",
+  ],
+  sh: [
+    "SH(1)                   UNIX V7                   SH(1)",
+    "",
+    "NAME  sh - the Bourne shell",
+    "AUTHOR  Stephen R. Bourne",
+  ],
+}
+
+export function manPage(cmd: string): string[] {
+  return PAGES[cmd] || [`No manual entry for ${cmd}`]
+}
